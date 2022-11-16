@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zf.bk2.mapper.BookCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zf.bk2.model.BookCategory" >
+    <constructor >
+      <idArg column="book_category_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_category_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <resultMap id="row" type="com.zf.bk2.model.BookCategory" >
+      <id column="book_category_id"  property="bookCategoryId"/>
+      <result column="book_category_name" property="bookCategoryName" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    book_category_id, book_category_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_book_category
+    where book_category_id = #{bookCategoryId,jdbcType=BIGINT}
+  </select>
+    <select id="list" resultMap="row" resultType="com.zf.bk2.model.BookCategory">
+      select * from  t_book_category where 1=1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_book_category
+    where book_category_id = #{bookCategoryId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zf.bk2.model.BookCategory" >
+    insert into t_book_category (book_category_id, book_category_name)
+    values (#{bookCategoryId,jdbcType=BIGINT}, #{bookCategoryName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zf.bk2.model.BookCategory" >
+    insert into t_book_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookCategoryId != null" >
+        book_category_id,
+      </if>
+      <if test="bookCategoryName != null" >
+        book_category_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookCategoryId != null" >
+        #{bookCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="bookCategoryName != null" >
+        #{bookCategoryName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zf.bk2.model.BookCategory" >
+    update t_book_category
+    <set >
+      <if test="bookCategoryName != null" >
+        book_category_name = #{bookCategoryName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_category_id = #{bookCategoryId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zf.bk2.model.BookCategory" >
+    update t_book_category
+    set book_category_name = #{bookCategoryName,jdbcType=VARCHAR}
+    where book_category_id = #{bookCategoryId,jdbcType=BIGINT}
+  </update>
+</mapper>

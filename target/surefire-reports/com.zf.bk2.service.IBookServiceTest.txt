@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.zf.bk2.service.IBookServiceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.908 s <<< FAILURE! - in com.zf.bk2.service.IBookServiceTest
+insert(com.zf.bk2.service.IBookServiceTest)  Time elapsed: 0.006 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.zf.bk2.service.IBookServiceTest.insert(IBookServiceTest.java:40)
+
