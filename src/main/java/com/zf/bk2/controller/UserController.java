@@ -38,19 +38,6 @@ public class UserController {
         user.setUserName(userName);
         out.println("从前端获取的userName:"+userName);
 
-        //从前端获取的页码和页大小进行赋值
-//        String page = request.getParameter("page");
-//        int intpage = Integer.parseInt(page);
-//
-//        String rows = request.getParameter("rows");
-//        int introws = Integer.parseInt("rows");
-//        //输出页码页大小
-//        out.println("页大小"+introws);
-//        out.println("页码为"+intpage);
-//
-//        pageBean.setPage(intpage);
-//        pageBean.setRows(introws);
-
         List<User> userList = userService.list(user, pageBean);
 
         //开始进行分页
@@ -181,7 +168,7 @@ public class UserController {
         user.setUserPwd(userPwd);
         out.println("获取userPwd"+userPwd);
         user.setUserType(intUserType);
-        out.println("获取userPwd"+userPwd);
+        out.println("获取intUserType"+intUserType);
         out.println("输出获取的所有数据"+user);
 
         JsonData jsonData = new JsonData();
@@ -190,8 +177,8 @@ public class UserController {
 //            jsonData.setCode(1);
 //            out.println("前端修改的值后端不存在:"+jsonData);
 //            jsonData.setMessage("后端不存在该值,无法修改");
-//        }else
-            if (user1.getUserId()!=longUserId){
+//        }elseuser1.getUserId()!=longUserId
+            if (null==user1){
             jsonData.setCode(1);
             jsonData.setMessage("Id值不存在，并且Id无法被修改");
             out.println("输出Id:"+longUserId);
@@ -201,10 +188,18 @@ public class UserController {
             out.println("userType类别不正确");
         }else{
             out.println("进入修改");
-            user.setUserId(longUserId);
-            user.setUserName(userName);
-            user.setUserPwd(userPwd);
-            user.setUserType(intUserType);
+            out.println("查看前端userid："+user.getUserId());
+            user.setUserId(user1.getUserId());
+                out.println("查看赋值后userid："+user1.getUserId());
+//            user.setUserName(user1.getUserName());
+                user1.setUserName(userName);
+                out.println("查看赋值后userid："+user1.getUserName());
+//            user.setUserPwd(userPwd);
+                user1.setUserPwd(userPwd);
+                out.println("查看赋值后userPwd："+user1.getUserPwd());
+//            user.setUserType(user1.getUserType());
+                user1.setUserType(intUserType);
+                out.println("查看赋值后userType："+user1.getUserType());
             int i = userService.update(user);
             out.println(i);
             jsonData.setMessage("用户密码修改成功");
