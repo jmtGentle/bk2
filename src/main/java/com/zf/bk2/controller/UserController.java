@@ -46,6 +46,8 @@ public class UserController {
         jsonData.setCode(0);
         jsonData.setMessage("用户查询成功");
         jsonData.setResult(userList);
+        out.println("查询getPage"+pageBean.getPage());
+        out.println("查询getRows"+pageBean.getRows());
         jsonData.setPage(pageBean.getPage());
         jsonData.setRows(pageBean.getRows());
         jsonData.setTotal(pageBean.getTotal());

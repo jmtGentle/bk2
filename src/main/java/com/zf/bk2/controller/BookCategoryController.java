@@ -28,6 +28,8 @@ public class BookCategoryController {
     @ResponseBody
     public String toList(BookCategory bookCategory, HttpServletRequest request,PageBean pageBean){
         System.out.println("进入查询");
+        out.println("pageBean查询数据："+pageBean);
+        out.println("bookCategory查询："+bookCategory);
         List<BookCategory> bookCategoryList = bookCategoryService.list(bookCategory,pageBean);
         JsonData jsonData = new JsonData();
         jsonData.setCode(0);

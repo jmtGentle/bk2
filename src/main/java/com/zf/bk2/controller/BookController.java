@@ -42,7 +42,8 @@ public class BookController {
     @RequestMapping("/toList")
     @ResponseBody//获取前端json数据的注释代码
     public  String toList(Book book, PageBean pageBean, HttpServletRequest request){
-
+        out.println("查询从前端查到的book所有的数据："+book);
+        out.println("查询从前端查到的pageBean所有的数据："+pageBean);
         List<BookVo> bookList = bookService.list(book, pageBean);
 
         JsonData jsonData = new JsonData();
