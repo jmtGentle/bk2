@@ -44,6 +44,7 @@ public class BookController {
     public  String toList(Book book, PageBean pageBean, HttpServletRequest request){
 
         List<BookVo> bookList = bookService.list(book, pageBean);
+
         JsonData jsonData = new JsonData();
         jsonData.setCode(0);
         jsonData.setMessage("书本查询成功");
