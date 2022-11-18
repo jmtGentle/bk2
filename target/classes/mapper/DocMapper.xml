@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zf.bk2.mapper.DocMapper" >
+  <resultMap id="BaseResultMap" type="com.zf.bk2.model.Doc" >
+    <constructor >
+      <idArg column="Id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="file_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mime" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, file_name, mime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_doc
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_doc
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zf.bk2.model.Doc" >
+    insert into t_doc (Id, file_name, mime
+      )
+    values (#{id,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, #{mime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zf.bk2.model.Doc" >
+    insert into t_doc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="mime != null" >
+        mime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="mime != null" >
+        #{mime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zf.bk2.model.Doc" >
+    update t_doc
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="mime != null" >
+        mime = #{mime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zf.bk2.model.Doc" >
+    update t_doc
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      mime = #{mime,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
