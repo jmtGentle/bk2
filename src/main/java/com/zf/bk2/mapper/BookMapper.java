@@ -23,5 +23,5 @@ public interface BookMapper {
 
     int updateByPrimaryKey(Book record);
 
-    List<BookVo> list(Book book);
+    List<BookVo> list(BookVo bookVo);
 }

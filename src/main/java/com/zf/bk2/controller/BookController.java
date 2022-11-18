@@ -41,11 +41,13 @@ public class BookController {
 
     @RequestMapping("/toList")
     @ResponseBody//获取前端json数据的注释代码
-    public  String toList(Book book, PageBean pageBean, HttpServletRequest request){
-        out.println("查询从前端查到的book所有的数据："+book);
+    public  String toList(BookVo bookVo, PageBean pageBean, HttpServletRequest request){
+        out.println("查询从前端查到的book所有的数据："+bookVo);
         out.println("查询从前端查到的pageBean所有的数据："+pageBean);
-        List<BookVo> bookList = bookService.list(book, pageBean);
-
+        List<BookVo> bookList = bookService.list(bookVo, pageBean);
+        for (BookVo b: bookList){
+            out.println("查询到数据："+b);
+        }
         JsonData jsonData = new JsonData();
         jsonData.setCode(0);
         jsonData.setMessage("书本查询成功");
@@ -112,6 +114,7 @@ public class BookController {
             out.println("书本新增成功:" + jsonData);
         } else {
             bookService.update(book);
+            out.println("获取修改后的:"+book);
             jsonData.setMessage("书本修改成功");
             out.println("书本修改成功:" + jsonData);
         }

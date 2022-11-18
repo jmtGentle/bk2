@@ -26,7 +26,7 @@ public interface IBookService {
 
 //    @Cacheable(value = "abc")
     @Transactional(readOnly = true)
-    List<BookVo> list(Book book, PageBean pageBean);
+    List<BookVo> list(BookVo bookVo, PageBean pageBean);
 
 
     int updatePrice(Book book);

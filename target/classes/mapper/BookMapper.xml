@@ -45,8 +45,8 @@
     where book_id = #{bookId,jdbcType=BIGINT}
   </select>
 
-  <select id="list" resultMap="map" resultType="com.zf.bk2.model.Book">
-    select * from  t_book where 1=1
+  <select id="list" resultMap="map" resultType="com.zf.bk2.vo.BookVo">
+    SELECT * FROM t_book a LEFT JOIN t_book_category b on a.book_category_id=b.book_category_id where 1=1
     <if test="bookName != null and '' != bookName " >
       and book_name like CONCAT ('%',#{bookName},'%')
     </if>

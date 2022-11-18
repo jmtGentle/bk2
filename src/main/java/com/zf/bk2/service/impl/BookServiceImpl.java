@@ -50,7 +50,7 @@ public class BookServiceImpl implements IBookService {
 
 
     @Override
-    public List<BookVo> list(Book record, PageBean pageBean) {
+    public List<BookVo> list(BookVo record, PageBean pageBean) {
         //设置分页处理
 //        if (null != pageBean) {
 //            PageHelper.startPage(pageBean.getPage(), pageBean.getRows());

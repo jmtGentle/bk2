@@ -96,10 +96,11 @@ public class IBookServiceTest extends BaseTestCase{
     @Test
     public void list() {
         PageBean pageBean = new PageBean();
-        pageBean.setPage(2);
-        pageBean.setRows(7);
-        book.setBookName("武");
-        List<BookVo> bookVoListList = bookService.list(book,pageBean);
+        BookVo bookVo = new BookVo();
+        pageBean.setPage(1);
+        pageBean.setRows(30);
+//        book.setBookName("武");
+        List<BookVo> bookVoListList = bookService.list(bookVo,pageBean);
         for (BookVo b : bookVoListList ){
             System.out.println(b);
         }
