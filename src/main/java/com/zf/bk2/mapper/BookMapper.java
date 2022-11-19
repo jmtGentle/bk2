@@ -24,4 +24,10 @@ public interface BookMapper {
     int updateByPrimaryKey(Book record);
 
     List<BookVo> list(BookVo bookVo);
+
+    int updateBookImage(Book book);
+
+    Book loadBook(Book book);
+
+    Book update1(Book book);
 }

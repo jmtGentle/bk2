@@ -30,4 +30,10 @@ public interface IBookService {
 
 
     int updatePrice(Book book);
+
+    int updateBookImage(Book book);
+
+    Book loadBook(Book book);
+
+    Book update1(Book book);
 }

@@ -1,7 +1,9 @@
 package com.zf.bk2.controller;
 
 import com.zf.bk2.model.Book;
+import com.zf.bk2.model.Doc;
 import com.zf.bk2.service.IBookService;
+import com.zf.bk2.service.IDocService;
 import com.zf.bk2.util.JsonData;
 import com.zf.bk2.util.JsonUtils;
 import com.zf.bk2.util.PageBean;
@@ -16,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 import static java.lang.System.out;
@@ -27,9 +31,14 @@ import static java.lang.System.out;
 @RequestMapping("/book")
 public class BookController {
 
+    //图片上传目录,要考虑linux/windows路径问题
+    private String saveDir="D:\\temp\\image\\";
 
     @Autowired
     private IBookService bookService;
+
+    @Autowired
+    private IDocService docService;
 
 
     private  MapperFactory mapperFactory;
@@ -133,6 +142,63 @@ public class BookController {
 //        book.setBookId(longBookId);
         bookService.delete(longBookId);
         jsonData.setMessage("书本删除成功");
+        String JsonData = JsonUtils.getJson(jsonData);
+        return JsonData;
+    }
+
+    @RequestMapping("toUploadBookImage")
+    @ResponseBody
+    public  String uploadBookImage( HttpServletRequest request,PageBean pageBean)throws Exception{
+       //获取前端的值
+        String bookName = request.getParameter("bookName");
+        out.println("输出从前端获取的姓名："+bookName);
+        //获取前端页码页大小
+        String page = request.getParameter("page");
+        String rows = request.getParameter("rows");
+        //转换数据为int类型
+        int pageInt = Integer.parseInt(page);
+        int rowsInt = Integer.parseInt(rows);
+        //输出页码页大小
+        out.println("输出前端获取的页码："+page);
+        out.println("输出从前端获取的页大小:"+rows);
+        //赋值
+        pageBean.setRows(pageInt);
+        pageBean.setRows(rowsInt);
+        //进行分页查询
+        return  null;
+    }
+
+    public  String uploadBookImage(HttpServletRequest request,MultipartFile file,Doc doc,Book book)throws  Exception{
+        out.println("查看img："+file);
+        out.println("进入文件上传");
+        //获取书本Id
+        String bookId = request.getParameter("bookId");
+        long bookIdLong = Long.parseLong(bookId);
+        out.println("查看进入book修改页面的bookid:"+bookIdLong);
+        //1.保存临时文件到指定的目录
+        Long id =System.currentTimeMillis();
+        String path=saveDir+id;
+        File saveDirs = new File(path);
+        System.out.println("查看值:" + saveDirs);
+        file.transferTo(saveDirs);
+        System.out.println("查看值下一步");
+        //2.保存文件上传记录
+        doc.setId(id);
+        doc.setFileName(file.getOriginalFilename());
+        doc.setMime(file.getContentType());
+        docService.insert(doc);
+        //更新书本封面
+        book.setBookId(bookIdLong);
+        book.setBookImage(id);
+        Book loadBook = bookService.loadBook(book);
+        out.println("查询一遍："+loadBook.getBookName());
+        book.setBookName(loadBook.getBookName());
+
+//        bookService.update1(this.book);
+//        out.println("修改后id" + this.book);
+        JsonData jsonData = new JsonData();
+        jsonData.setCode(0);
+        jsonData.setMessage("封面上传成功");
         String JsonData = JsonUtils.getJson(jsonData);
         return JsonData;
     }

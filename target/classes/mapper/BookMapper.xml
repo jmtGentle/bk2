@@ -34,6 +34,21 @@
     <result column="sales_volume" property="salesVolume"  />
   </resultMap>
 
+  <resultMap id="maps" type="com.zf.bk2.model.Book">
+    <id column="book_id" property="bookId" />
+    <result column="book_name" property="bookName" />
+    <result column="book_name_pinyin" property="bookNamePinyin" />
+    <result column="book_category_id" property="bookCategoryId"  />
+    <result column="book_author" property="bookAuthor" />
+    <result column="book_price" property="bookPrice" />
+    <result column="book_image" property="bookImage"  />
+    <result column="publishing" property="publishing" />
+    <result column="book_desc" property="bookDesc"  />
+    <result column="book_state" property="bookState"  />
+    <result column="deploy_datetime" property="deployDatetime" />
+    <result column="sales_volume" property="salesVolume"  />
+  </resultMap>
+
   <sql id="Base_Column_List" >
     book_id, book_name, book_name_pinyin, book_category_id, book_author, book_price,
     book_image, publishing, book_desc, book_state, deploy_datetime, sales_volume
@@ -50,6 +65,11 @@
     <if test="bookName != null and '' != bookName " >
       and book_name like CONCAT ('%',#{bookName},'%')
     </if>
+  </select>
+  <select id="loadBook" resultMap="maps" resultType="com.zf.bk2.model.Book">
+    select *
+    from t_book
+    where book_name = #{bookName,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -210,6 +230,51 @@
         deploy_datetime = #{deployDatetime,jdbcType=TIMESTAMP},
         sales_volume = #{salesVolume,jdbcType=INTEGER}
     where book_id = #{bookId,jdbcType=BIGINT}
+  </update>
+    <update id="updateBookImage" parameterType="com.zf.bk2.model.Book">
+      update t_book
+      set book_image = #{bookImage}
+      where book_id = #{bookId,jdbcType=BIGINT}
+
+    </update>
+  <update id="update1" parameterType="com.zf.bk2.model.Book">
+    update t_book
+    <set >
+      <if test="bookId != null" >
+        book_Id = #{bookName,jdbcType=BIGINT},
+      </if>
+      <if test="bookNamePinyin != null" >
+        book_name_pinyin = #{bookNamePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCategoryId != null" >
+        book_category_id = #{bookCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="bookAuthor != null" >
+        book_author = #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        book_price = #{bookPrice,jdbcType=FLOAT},
+      </if>
+      <if test="bookImage != null" >
+        book_image = #{bookImage,jdbcType=BIGINT},
+      </if>
+      <if test="publishing != null" >
+        publishing = #{publishing,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDesc != null" >
+        book_desc = #{bookDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bookState != null" >
+        book_state = #{bookState,jdbcType=INTEGER},
+      </if>
+      <if test="deployDatetime != null" >
+        deploy_datetime = #{deployDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume = #{salesVolume,jdbcType=INTEGER},
+      </if>
+    </set>
+    where book_name = #{bookName,jdbcType=VARCHAR}
   </update>
 
 </mapper>

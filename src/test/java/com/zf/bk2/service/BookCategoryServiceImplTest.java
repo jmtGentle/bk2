@@ -1,4 +1,4 @@
-package com.zf.bk2.service.impl;
+package com.zf.bk2.service;
 
 import com.zf.bk2.model.BookCategory;
 import com.zf.bk2.model.User;

@@ -70,4 +70,19 @@ public class BookServiceImpl implements IBookService {
     public int updatePrice(Book book) {
         return bookMapper.updateByPrimaryKeySelective(book);
     }
+
+    @Override
+    public int updateBookImage(Book book) {
+        return bookMapper.updateBookImage(book);
+    }
+
+    @Override
+    public Book loadBook(Book book) {
+        return bookMapper.loadBook(book);
+    }
+
+    @Override
+    public Book update1(Book book) {
+        return null;
+    }
 }
