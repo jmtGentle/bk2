@@ -69,7 +69,7 @@
   <select id="loadBook" resultMap="maps" resultType="com.zf.bk2.model.Book">
     select *
     from t_book
-    where book_name = #{bookName,jdbcType=VARCHAR}
+    where book_id = #{bookId,jdbcType=BIGINT}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
